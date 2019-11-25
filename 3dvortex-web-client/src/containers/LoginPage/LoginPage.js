@@ -1,16 +1,14 @@
 import React, {PureComponent} from 'react';
-import './App.css';
 
 
-
-class App extends PureComponent {
+class LoginPage extends PureComponent {
   render () {
   return (
     <div>
-
+      <p>Login</p>
     </div>
   );
   }
 }
 
-export default App;
+export default LoginPage;
