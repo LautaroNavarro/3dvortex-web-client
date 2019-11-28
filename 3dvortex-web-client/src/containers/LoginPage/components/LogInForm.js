@@ -2,23 +2,15 @@ import React, {PureComponent} from 'react';
 import Row from '../../../hoc/Row';
 import Column from '../../../hoc/Column';
 import classes from './LogInForm.module.css';
-import { Redirect } from 'react-router-dom'
+import { GeneralContext } from '../../../components/Layout/Layout';
 
 class LogInForm extends PureComponent {
 
-    state = {
-      redirect: false
-    }
+    static contextType = GeneralContext;
 
-    setRedirect = () => {
-      this.setState({
-        redirect: true
-      })
-    }
-    renderRedirect = () => {
-      if (this.state.redirect) {
-        return <Redirect to='/' />
-      }
+    state = {
+      email: '',
+      password: '',
     }
 
     getBase64EmailAndPassword = (email, password) => {
@@ -27,11 +19,14 @@ class LogInForm extends PureComponent {
 
     setToken = (token) => {
       sessionStorage.setItem('token', token);
-      this.setRedirect();
+      const {setRedirect} = this.context;
+      setRedirect();
     }
 
     handleLoginError = (error_message) => {
-      this.props.handleRaiseAlert(error_message, 'DANGER');
+      const { raiseAlert } = this.context;
+
+      raiseAlert(error_message, 'DANGER');
     }
 
     valideEmail = (email) => {
@@ -39,10 +34,10 @@ class LogInForm extends PureComponent {
     }
 
     handleSubmit = (event) => {
-        const email = event.target.parentElement.children[0].children[1].value;
-        const password = event.target.parentElement.children[1].children[1].value;
+        event.preventDefault();
+        const {email, password} = this.state;
         if (this.valideEmail(email)) {
-          var xhr = new XMLHttpRequest();
+          let xhr = new XMLHttpRequest();
           xhr.responseType = 'json';
           xhr.addEventListener('load', () => {
             if (xhr.status === 200){
@@ -55,26 +50,58 @@ class LogInForm extends PureComponent {
           xhr.setRequestHeader('Authorization', `basic ${this.getBase64EmailAndPassword(email, password)}`);
           xhr.send();
         } else {
-          this.props.handleRaiseAlert('Invalid email', 'DANGER');
-        }
+          const {raiseAlert} = this.context;
 
+          raiseAlert('Invalid email', 'DANGER');
+        }
+    }
+
+    onChangeEmail = ({
+        target: {
+          value: email,
+        },
+      }) => {
+      this.setState({email});
+    }
+
+    onChangePassword = ({
+        target: {
+          value: password,
+        },
+      }) => {
+      this.setState({password});
     }
 
     render () {
     return (
         <Row>
-            {this.renderRedirect()}
+            {this.context.renderRedirect()}
             <Column number="12">
-            <form className={`form-signin ${classes.LogInForm}`} method="GET" action="./index.html">
+            <form className={`form-signin ${classes.LogInForm}`} onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="input_email">Correo</label>
-                <input type="email" className="form-control" id="input_email" aria-describedby="emailHelp" placeholder="navarro_lautaro@hotmail.com" />
+                <input
+                  type="email"
+                  className="form-control"
+                  id="input_email"
+                  aria-describedby="emailHelp"
+                  placeholder="navarro_lautaro@hotmail.com"
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  />
               </div>
               <div className="form-group">
                 <label htmlFor="input_password">Contraseña</label>
-                <input type="password" className="form-control" id="input_password" placeholder="***********" />
+                <input
+                  type="password"
+                  className="form-control"
+                  id="input_password"
+                  placeholder="***********"
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                />
               </div>
-              <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Comenzar</button>
+              <button type="submit" className="btn btn-primary btn-block">Comenzar</button>
               <div className="text-center">
                   <p>No tenes cuenta?
                     <a href="./signin.html">Registrate</a>
