@@ -5,7 +5,7 @@ import classes from './LoginPage.module.css';
 import VortexLogo from '../../components/Icons/VortexLogo.png';
 
 
-class HomePage extends PureComponent {
+class LoginPage extends PureComponent {
 
   render () {
     return (
@@ -21,4 +21,4 @@ class HomePage extends PureComponent {
   }
 }
 
-export default HomePage;
+export default LoginPage;
