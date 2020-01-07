@@ -1,21 +1,19 @@
 import React, {PureComponent} from 'react';
 import Row from '../../../hoc/Row';
 import Column from '../../../hoc/Column';
-import classes from './LogInForm.module.css';
+import classes from './SignInForm.module.css';
 import GeneralContext from '../../../components/Layout/GeneralContext';
-import logIn from '../../../sdk/logIn';
+import signIn from '../../../sdk/signIn';
 
-class LogInForm extends PureComponent {
+class SignInForm extends PureComponent {
 
     static contextType = GeneralContext;
 
     state = {
       email: '',
       password: '',
-    }
-
-    getBase64EmailAndPassword = (email, password) => {
-      return `${btoa(email)}:${btoa(password)}`;
+      name: '',
+      lastname: '',
     }
 
     setToken = (token) => {
@@ -24,7 +22,7 @@ class LogInForm extends PureComponent {
       setRedirect();
     }
 
-    handleLoginError = (error_message) => {
+    handleSignInError = (error_message) => {
       const { raiseAlert } = this.context;
 
       raiseAlert(error_message, 'DANGER');
@@ -34,16 +32,25 @@ class LogInForm extends PureComponent {
       return /\S+@\S+\.\S+/.test(email);
     }
 
+    checkAllRequiredFieldsAreFulled = (state) => {
+        let fields = [state.email, state.password, state.name, state.lastname]
+        return fields.every((field) => (field));
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
-        const {email, password} = this.state;
-        if (this.valideEmail(email)) {
-          logIn(email, password, this.setToken, this.handleLoginError);
+        const {raiseAlert} = this.context;
+        const {email, password, name, lastname} = this.state;
+        if (this.checkAllRequiredFieldsAreFulled(this.state)){
+          if (this.valideEmail(email)) {
+            signIn(email, password, name, lastname, this.setToken, this.handleSignInError);
+          } else {
+            raiseAlert('Invalid email', 'DANGER');
+          }
         } else {
-          const {raiseAlert} = this.context;
-
-          raiseAlert('Invalid email', 'DANGER');
+            raiseAlert('Complete the required fields', 'DANGER');
         }
+
     }
 
     onChangeEmail = ({
@@ -62,12 +69,29 @@ class LogInForm extends PureComponent {
       this.setState({password});
     }
 
+    onChangeName = ({
+        target: {
+          value: name,
+        },
+      }) => {
+      this.setState({name});
+    }
+
+
+    onChangeLastName = ({
+        target: {
+          value: lastname,
+        },
+      }) => {
+      this.setState({lastname});
+    }
+
     render () {
     return (
         <Row>
             {this.context.renderRedirect()}
             <Column number="12">
-            <form className={`form-signin ${classes.LogInForm}`} onSubmit={this.handleSubmit}>
+            <form className={`form-signin ${classes.SignInForm}`} onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="input_email">Correo</label>
                 <input
@@ -78,6 +102,30 @@ class LogInForm extends PureComponent {
                   placeholder="navarro_lautaro@hotmail.com"
                   value={this.state.email}
                   onChange={this.onChangeEmail}
+                  />
+              </div>
+              <div className="form-group">
+                <label htmlFor="input_name">Nombre</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="input_name"
+                  aria-describedby="nameHelp"
+                  placeholder="Lautaro"
+                  value={this.state.name}
+                  onChange={this.onChangeName}
+                  />
+              </div>
+              <div className="form-group">
+                <label htmlFor="input_lastname">Apellido</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="input_lastname"
+                  aria-describedby="lastnameHelp"
+                  placeholder="Navarro"
+                  value={this.state.lastname}
+                  onChange={this.onChangeLastName}
                   />
               </div>
               <div className="form-group">
@@ -93,8 +141,8 @@ class LogInForm extends PureComponent {
               </div>
               <button type="submit" className="btn btn-primary btn-block">Comenzar</button>
               <div className="text-center">
-                  <p>No tenes cuenta?
-                    <a href="./signin">Registrate</a>
+                  <p>Ya tenes cuenta?
+                    <a href="./login">Inicia sesión</a>
                   </p>
               </div>
               <div className="text-center">
@@ -107,4 +155,4 @@ class LogInForm extends PureComponent {
     }
 }
 
-export default LogInForm;
+export default SignInForm;

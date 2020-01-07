@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { Component } from 'react';
 import Aux from './../../hoc/Aux.js';
 import Container from '../../hoc/Container';
 import NavBar from '../../components/NavBar/NavBar';
@@ -6,10 +6,9 @@ import Footer from '../../components/Footer/Footer';
 import classes from './Layout.module.css';
 import Alert from '../../components/Alert/Alert';
 import { Redirect } from 'react-router-dom'
+import GeneralContext from './GeneralContext';
 
-export const GeneralContext = React.createContext();
-
-class Layout extends PureComponent {
+class Layout extends Component {
 
     defaultAlertStatus = {
           alert: {
@@ -54,10 +53,65 @@ class Layout extends PureComponent {
         });
     }
 
+    isPathAvailable = (path) => {
+        if (
+            (this.isLoggedIn()) &&
+            (this.UNAVAILABLE_PATHS_WITH_LOGIN.indexOf(window.location.pathname) === -1 ? false : true)
+        ){
+            return false;
+        }
+        if (
+            (!(this.isLoggedIn())) &&
+            !(this.AVAILABLE_PATHS_WITHOUT_LOGIN.indexOf(window.location.pathname) === -1 ? false : true)
+        ){
+            return false;
+        }
+        return true;
+    }
+
+    AVAILABLE_PATHS_WITHOUT_LOGIN = [
+        '/login',
+        '/signin',
+        '/',
+    ]
+
+    UNAVAILABLE_PATHS_WITH_LOGIN = [
+        '/login',
+        '/signin',
+    ]
+
+    componentDidMount (prevProps, prevState, snapshot) {
+        if ( !this.isPathAvailable(window.location.pathname) ){
+            this.setRedirect('/');
+        }
+    }
+
+    isLoggedIn () {
+        return Boolean(sessionStorage.getItem('token'));
+    }
+
+    getUserFromToken() {
+        if (this.isLoggedIn()) {
+            return JSON.parse(atob(sessionStorage.getItem('token').split('.')[1]));
+        } else {
+            return {};
+        }
+
+    }
+
     render () {
         return (
             <Aux>
-                <NavBar />
+                { this.renderRedirect() }
+                <GeneralContext.Provider value={
+                    {
+                        raiseAlert: this.handleRaiseAlert,
+                        setRedirect: this.setRedirect,
+                        renderRedirect: this.renderRedirect,
+                        user: this.getUserFromToken(),
+                    }
+                }>
+                <NavBar isLoggedIn={this.isLoggedIn()}/>
                 <Alert
                     message={this.state.alert.message}
                     display={this.state.alert.display}
@@ -65,18 +119,11 @@ class Layout extends PureComponent {
                     handleCloseAlert={() => {this.handleCloseAlert()}}
                 />
                 {/*<div>Toolbar, SideDrawer, Backdrop</div>*/}
-                <GeneralContext.Provider value={
-                    {
-                        raiseAlert: this.handleRaiseAlert,
-                        setRedirect: this.setRedirect,
-                        renderRedirect: this.renderRedirect,
-                    }
-                }>
                     <Container className={classes.Main}>
                         {this.props.children}
                     </Container>
-                </GeneralContext.Provider>
                 <Footer />
+                </GeneralContext.Provider>
             </Aux>
         );
     }
