@@ -21,7 +21,7 @@ class LogInForm extends PureComponent {
     setToken = (token) => {
       sessionStorage.setItem('token', token);
       const {setRedirect} = this.context;
-      setRedirect();
+      setRedirect('/');
     }
 
     handleLoginError = (error_message) => {

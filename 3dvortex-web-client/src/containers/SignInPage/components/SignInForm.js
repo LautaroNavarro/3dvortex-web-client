@@ -19,7 +19,7 @@ class SignInForm extends PureComponent {
     setToken = (token) => {
       sessionStorage.setItem('token', token);
       const {setRedirect} = this.context;
-      setRedirect();
+      setRedirect('/');
     }
 
     handleSignInError = (error_message) => {
