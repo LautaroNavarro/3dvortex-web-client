@@ -1,0 +1,8 @@
+.CategorySectionItem {
+    cursor: initial;
+}
+
+.CategorySectionItem:hover {
+    background-color: #5DBCD2;
+    color: white;
+}

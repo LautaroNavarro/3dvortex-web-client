@@ -118,6 +118,7 @@ class Layout extends Component {
                     messageType={this.state.alert.messageType}
                     handleCloseAlert={() => {this.handleCloseAlert()}}
                 />
+                {this.props.renderBeforeMain}
                 {/*<div>Toolbar, SideDrawer, Backdrop</div>*/}
                     <Container className={classes.Main}>
                         {this.props.children}

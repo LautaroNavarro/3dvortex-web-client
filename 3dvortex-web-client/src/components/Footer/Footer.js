@@ -7,7 +7,7 @@ import classes from './Footer.module.css';
 class Footer extends PureComponent {
     render () {
         return (
-          <footer className="font-small cyan bg-dark text-light text-center">
+          <footer className="font-small cyan bg-dark text-light text-center mt-5">
             <Container>
               <Row>
                 <div className="col-md-12 mt-5">

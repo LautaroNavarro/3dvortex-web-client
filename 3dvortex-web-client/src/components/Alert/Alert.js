@@ -15,7 +15,7 @@ export const ALERT_TYPES = {
 const Alert = (props) => {
 
     return (
-        <div className={`m-2 alert ${ALERT_TYPES[props.messageType]} alert-dismissible fade ${props.display ? 'show' : ''}`} role="alert">
+        <div className={`m-2 alert ${ALERT_TYPES[props.messageType]} alert-dismissible fade ${props.display ? 'show' : 'd-none'}`} role="alert">
           {props.message}
           <button type="button" className="close" aria-label="Close" onClick={props.handleCloseAlert}>
             <span aria-hidden="true">&times;</span>
