@@ -5,6 +5,7 @@ import './index.css';
 import HomePage from './containers/HomePage/HomePage';
 import LoginPage from './containers/LoginPage/LoginPage';
 import SignInPage from './containers/SignInPage/SignInPage';
+import ViewModel from './containers/ViewModel/ViewModel';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -13,6 +14,7 @@ const routing = (
       <Route exact path="/" component={HomePage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/signin" component={SignInPage} />
+      <Route path="/models/:id" component={ViewModel} />
     </div>
   </Router>
 );

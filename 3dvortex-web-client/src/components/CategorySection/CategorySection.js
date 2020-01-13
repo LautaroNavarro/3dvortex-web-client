@@ -1,19 +1,46 @@
-import React from 'react';
+import React, { PureComponent }from 'react';
 import HorizontalSection from '../HorizontalSection/HorizontalSection';
+import GeneralContext from '../../components/Layout/GeneralContext';
 import CategorySectionItem from './CategorySectionItem/CategorySectionItem';
+import { listCategories } from '../../sdk/categories';
+
+class CategorySection extends PureComponent {
+
+    state = {
+      categories: [],
+    }
+
+    static contextType = GeneralContext;
+
+    handleGetCategories = (categories) => {
+      this.setState(categories);
+    }
+
+    handleGetCategoriesError = (error_message) => {
+      const { raiseAlert } = this.context;
+
+      raiseAlert(error_message, 'DANGER');
+
+    }
+
+    componentDidMount() {
+      listCategories(this.handleGetCategories, this.handleGetCategoriesError);
+    }
 
 
-const CategorySection = (props) => {
-    return (
-      <HorizontalSection text={props.text}>
-        <CategorySectionItem name='Tecnologia'/>
-        <CategorySectionItem name='Hogar'/>
-        <CategorySectionItem name='Diseño'/>
-        <CategorySectionItem name='Plantas'/>
-        <CategorySectionItem name='Adornos'/>
-        <CategorySectionItem name='Mecánica'/>
-      </HorizontalSection>
-    );
+    render () {
+        return (
+          <HorizontalSection text={this.props.text}>
+               {
+                    this.state.categories.map(
+                        (category) => (
+                            category.father_category_id ?
+                            ''  : <CategorySectionItem key={ category.id } url='#' name={ category.name } />
+                        )
+                    )
+                  }
+          </HorizontalSection>
+        );
+    }
 }
-
 export default CategorySection;

@@ -14,8 +14,14 @@ class HomePage extends PureComponent {
       this.setState({newestModels});
     }
 
+    handleGetMostPrintedModels = (response) => {
+      let mostPrintedModels = response.models.slice(0, 4)
+      this.setState({mostPrintedModels});
+    }
+
   componentDidMount() {
     listModels(this.handleGetNewestModels, ()=>{}, [NEWESTS_FILTER]);
+    listModels(this.handleGetMostPrintedModels, ()=>{}, [MOST_PRINTED_FILTER]);
   }
 
 
@@ -44,42 +50,19 @@ class HomePage extends PureComponent {
                 }
               </HorizontalSection>
               <HorizontalSection text='Los mas impresos'>
-                  <ModelContentSection
+                {
+                  this.state.mostPrintedModels.map(
+                    (model) => <ModelContentSection
                       colNumber='3'
-                      url='https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/06/04/454560/269139/border_collie_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2825123_o.jpg'
-                      alt='Image description'
-                      price='120'
-                      name='Perro'
-                      key='5'
-                      modelId='5'
-                  />
-                  <ModelContentSection
-                      colNumber='3'
-                      url='https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/06/04/454560/269139/border_collie_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2825123_o.jpg'
-                      alt='Image description'
-                      price='120'
-                      name='Perro'
-                      key='6'
-                      modelId='6'
-                  />
-                  <ModelContentSection
-                      colNumber='3'
-                      url='https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/06/04/454560/269139/border_collie_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2825123_o.jpg'
-                      alt='Image description'
-                      price='120'
-                      name='Perro'
-                      key='7'
-                      modelId='7'
-                  />
-                  <ModelContentSection
-                      colNumber='3'
-                      url='https://netrinoimages.s3.eu-west-2.amazonaws.com/2017/06/04/454560/269139/border_collie_3d_model_c4d_max_obj_fbx_ma_lwo_3ds_3dm_stl_2825123_o.jpg'
-                      alt='Image description'
-                      price='120'
-                      name='Perro'
-                      key='8'
-                      modelId='8'
-                  />
+                      url={model.image_media ? model.image_media.url : 'https://carolinadojo.com/wp-content/uploads/2017/04/default-image.jpg'}
+                      alt={model.description}
+                      verified={true}
+                      name={model.name}
+                      key={model.id}
+                      modelId={model.id}
+                    />
+                  )
+                }
               </HorizontalSection>
               <CategorySection text='Categorias'>
               </CategorySection>
