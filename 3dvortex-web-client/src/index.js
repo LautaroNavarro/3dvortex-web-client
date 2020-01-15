@@ -6,6 +6,7 @@ import HomePage from './containers/HomePage/HomePage';
 import LoginPage from './containers/LoginPage/LoginPage';
 import SignInPage from './containers/SignInPage/SignInPage';
 import ViewModel from './containers/ViewModel/ViewModel';
+import ManageAddresses from './containers/ManageAddresses/ManageAddresses';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -15,6 +16,7 @@ const routing = (
       <Route path="/login" component={LoginPage} />
       <Route path="/signin" component={SignInPage} />
       <Route path="/models/:id" component={ViewModel} />
+      <Route path="/manage-addresses" component={ManageAddresses} />
     </div>
   </Router>
 );

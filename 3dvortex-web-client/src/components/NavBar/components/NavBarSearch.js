@@ -7,7 +7,7 @@ const NavBarSearch = (props) => {
         <div className="input-group">
           <input className="form-control py-2 border-right-0 border" type="search" aria-label="Search" />
           <div className="input-group-append border-danger rounded-right">
-              <div className="input-group-text bg-white rounded-right nav-item nav-link">
+              <div className="input-group-text bg-white rounded-right nav-item">
                 <SearchIcon />
               </div>
           </div>

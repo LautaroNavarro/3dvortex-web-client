@@ -1,4 +1,5 @@
 import { baseURI } from './config';
+import api from './utils';
 
 export const listCategories = (successCallBack, failureCallBack) => {
     let xhr = new XMLHttpRequest();
@@ -12,4 +13,17 @@ export const listCategories = (successCallBack, failureCallBack) => {
     })
     xhr.open('GET', `${baseURI}/categories/`);
     xhr.send();
+}
+
+
+export const listCategoriesFetch = (sucess, failure) => {
+    api('categories/', {
+        method: 'GET',
+    })
+    .then((data) => {
+        sucess(data);
+    })
+    .catch((code, error) => {
+        failure(error);
+    });
 }

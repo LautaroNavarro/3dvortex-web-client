@@ -64,8 +64,7 @@ class HomePage extends PureComponent {
                   )
                 }
               </HorizontalSection>
-              <CategorySection text='Categorias'>
-              </CategorySection>
+              <CategorySection text='Categorias' />
           </Column>
         </Layout>
       );

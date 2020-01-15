@@ -14,7 +14,7 @@ class ModelContentSection extends Component {
         return (
             <div className={ `col-${this.props.colNumber}` } onClick={ () => this.clickHandler(this.props.modelId) }>
                 <div className={`card to-hover ${classes.ModelContentSection}`}>
-                    { this.props.verified ? <i class="far fa-check-circle fa-2x p-2"></i> : ''}
+                    { this.props.verified ? <i className="far fa-check-circle fa-2x p-2"></i> : ''}
                     <img className="card-img-top" src={ this.props.url } alt={ `$${this.props.alt}` } />
                     <div className="card-body">
                       <h5 className="card-title mb-3"> { `${this.props.name}` }</h5>
