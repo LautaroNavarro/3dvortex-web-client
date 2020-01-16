@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker/Marker';
 
-class SimpleMap extends Component {
+class SimpleMap extends PureComponent {
   static defaultProps = {
     center: {
-      lat: 59.95,
-      lng: 30.33
+      lat: -32.8788975,
+      lng: -68.85360159999999
     },
     zoom: 11,
     name: 'Home'
@@ -17,7 +17,8 @@ class SimpleMap extends Component {
       <div style={{ height: this.props.height, width: this.props.width }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyD26DcdKTKGn4-JggBmU-ciinAVvguEL-o' }}
-          defaultCenter={this.props.center}
+          defaultCenter={{ lat: -32.8788975, lng: -68.85360159999999 }}
+          center={this.props.center}
           defaultZoom={this.props.zoom}
         >
           <Marker

@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import Layout from '../../components/Layout/Layout';
 import AddressesList from '../../components/AddressesList/AddressesList';
+import OutlinePrimaryButton from '../../components/Buttons/OutlinePrimaryButton';
+
 
 class ManageAddresses extends PureComponent {
 
@@ -15,6 +17,7 @@ class ManageAddresses extends PureComponent {
               </div>
             </div>
             <AddressesList />
+          <OutlinePrimaryButton url='/create-address' text='Create Address'/>
         </div>
       </Layout>
     );

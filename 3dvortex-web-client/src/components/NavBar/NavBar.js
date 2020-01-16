@@ -20,9 +20,11 @@ class NavBar extends PureComponent {
 
     logOut (e) {
       sessionStorage.removeItem('token');
+      const {setRedirect} = this.context;
+      setRedirect('/login');
     }
 
-    redirectToCreateDirection (e) {
+    redirectToManageAddresses (e) {
       const {setRedirect} = this.context;
       setRedirect('/manage-addresses');
     }
@@ -62,7 +64,7 @@ class NavBar extends PureComponent {
                   { this.props.isLoggedIn ? <NavBarItem link="/"><ShoppingCartIcon /></NavBarItem> : ''}
                   { this.props.isLoggedIn ? (
                     <DropDown name={ `${user.name} ${user.lastname}` }>
-                      <DropDownItem onClickHandler={ () => this.redirectToCreateDirection() }>Mis direcciones</DropDownItem>
+                      <DropDownItem onClickHandler={ () => this.redirectToManageAddresses() }>Mis direcciones</DropDownItem>
                       <DropDownItem onClickHandler={ () => this.logOut() }>Salir</DropDownItem>
                     </DropDown>
                   ) : '' }
