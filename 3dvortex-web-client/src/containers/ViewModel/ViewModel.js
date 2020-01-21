@@ -34,10 +34,10 @@ class ViewModel extends PureComponent {
     <Layout>
     { (this.state.model) ?
         <div>
-            <div class="jumbotron jumbotron-fluid">
-              <div class="container">
-                <h1 class="display-4">{ this.state.model.name }</h1>
-                <p class="lead">{ this.state.model.description }</p>
+            <div className="jumbotron jumbotron-fluid">
+              <div className="container">
+                <h1 className="display-4">{ this.state.model.name }</h1>
+                <p className="lead">{ this.state.model.description }</p>
               </div>
             </div>
             <Row>
@@ -47,7 +47,7 @@ class ViewModel extends PureComponent {
                             'url': 'https://www.characterstation.com/eshop/8108-large_default/figur-funko-pop-custom-blank-male-diy-geneva-switzerland-online-shop.jpg',
                             'alt': 'alt'
                         } }
-                        model={{ 'url': 'https://3d-vortex-models.s3.us-east-2.amazonaws.com/object.stl'}}
+                        model={{ 'url': 'https://3d-vortex-models.s3.us-east-2.amazonaws.com/104.stl'}}
                     />
                 </Column>
                 <Column number='6'>

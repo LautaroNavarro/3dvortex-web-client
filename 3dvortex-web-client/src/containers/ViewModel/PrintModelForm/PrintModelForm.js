@@ -46,8 +46,8 @@ class PrintModelForm extends PureComponent {
                   <div className={classes.Price}>
                     <div>
                       <span>Precio: </span>
-                      <div class="spinner-grow" role="status">
-                        <span class="sr-only">Loading...</span>
+                      <div className="spinner-grow" role="status">
+                        <span className="sr-only">Loading...</span>
                       </div>
                       <span style={ {'display': 'none'} }>$120</span>
                     </div>
@@ -56,9 +56,9 @@ class PrintModelForm extends PureComponent {
               </Row>
               <Row className='pt-3'>
                 <Column number='12'>
-                  <button class="btn btn-primary btn-block" type="button" disabled>
-                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                    <span class="sr-only">Calculando precio...</span>
+                  <button className="btn btn-primary btn-block" type="button" disabled>
+                    <span className="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    <span className="sr-only">Calculando precio...</span>
                     <span style={ {'display': 'none'} }> Imprimir </span>
                   </button>
                 </Column>

@@ -18,9 +18,7 @@ class PrimaryButton extends PureComponent {
 
   render () {
     return (
-      <div className='text-center'>
         <div className={`btn btn-primary ${this.props.className}`} onClick={ () => this.clickHandler() }>{this.props.text}</div>
-      </div>
     );
   }
 }

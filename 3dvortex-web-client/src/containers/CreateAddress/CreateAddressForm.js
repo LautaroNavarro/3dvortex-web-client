@@ -1,6 +1,4 @@
 import React, {PureComponent} from 'react';
-import Layout from '../../components/Layout/Layout';
-import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
 import SimpleMap from '../../components/SimpleMap/SimpleMap';
 import PrimaryButton from '../../components/Buttons/PrimaryButton';
@@ -78,7 +76,7 @@ class CreateAddressForm extends PureComponent {
       <div>
         <form className={`form-signin`}>
               <div className="form-group">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Nombre</label>
                 <input
                   type="text"
                   className="form-control"
@@ -90,7 +88,7 @@ class CreateAddressForm extends PureComponent {
                   />
               </div>
               <div className="form-group">
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address">Direccion</label>
                 <input
                   type="text"
                   className="form-control"

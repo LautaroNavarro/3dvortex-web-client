@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Marker.module.css';
 
 const Marker = (props: any) => {
-    const { color, name, id } = props;
+    const { color, name } = props;
     return (
       <div className={classes.marker}
         style={{ backgroundColor: color, cursor: 'pointer'}}

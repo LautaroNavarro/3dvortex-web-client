@@ -29,6 +29,17 @@ class NavBar extends PureComponent {
       setRedirect('/manage-addresses');
     }
 
+    redirectToManageModels (e) {
+      const {setRedirect} = this.context;
+      setRedirect('/manage-models');
+    }
+
+    redirectToHome (e) {
+      const {setRedirect} = this.context;
+      setRedirect('/');
+    }
+
+
     handleGetCategories = (categories) => {
       this.setState(categories);
     }
@@ -49,7 +60,7 @@ class NavBar extends PureComponent {
         return (
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
               <Container>
-                <NavBarBrand link="/">3D VORTEX</NavBarBrand>
+                <NavBarBrand handler={() => this.redirectToHome() }>3D VORTEX</NavBarBrand>
                 <NavBarSearch />
                 <DropDown name="Categorias">
                   {
@@ -64,6 +75,7 @@ class NavBar extends PureComponent {
                   { this.props.isLoggedIn ? <NavBarItem link="/"><ShoppingCartIcon /></NavBarItem> : ''}
                   { this.props.isLoggedIn ? (
                     <DropDown name={ `${user.name} ${user.lastname}` }>
+                      <DropDownItem onClickHandler={ () => this.redirectToManageModels() }>Mis modelos</DropDownItem>
                       <DropDownItem onClickHandler={ () => this.redirectToManageAddresses() }>Mis direcciones</DropDownItem>
                       <DropDownItem onClickHandler={ () => this.logOut() }>Salir</DropDownItem>
                     </DropDown>

@@ -17,7 +17,7 @@ class ManageAddresses extends PureComponent {
               </div>
             </div>
             <AddressesList />
-          <OutlinePrimaryButton url='/create-address' text='Create Address'/>
+          <OutlinePrimaryButton url='/create-address' text='Crear Direccion'/>
         </div>
       </Layout>
     );

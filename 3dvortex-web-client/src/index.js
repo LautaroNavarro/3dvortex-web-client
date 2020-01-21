@@ -8,6 +8,8 @@ import SignInPage from './containers/SignInPage/SignInPage';
 import ViewModel from './containers/ViewModel/ViewModel';
 import ManageAddresses from './containers/ManageAddresses/ManageAddresses';
 import CreateAddress from './containers/CreateAddress/CreateAddress';
+import CreateModel from './containers/CreateModel/CreateModel';
+import ManageModels from './containers/ManageModels/ManageModels';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
@@ -18,7 +20,9 @@ const routing = (
       <Route path="/signin" component={SignInPage} />
       <Route path="/models/:id" component={ViewModel} />
       <Route path="/manage-addresses" component={ManageAddresses} />
+      <Route path="/manage-models" component={ManageModels} />
       <Route path="/create-address" component={CreateAddress} />
+      <Route path="/create-model" component={CreateModel} />
     </div>
   </Router>
 );

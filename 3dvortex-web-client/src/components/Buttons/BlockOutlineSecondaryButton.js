@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import GeneralContext from '../../components/Layout/GeneralContext';
 
 
-class OutlinePrimaryButton extends PureComponent {
+class BlockOutlineSecondaryButton extends PureComponent {
 
     static contextType = GeneralContext;
 
@@ -18,9 +18,14 @@ class OutlinePrimaryButton extends PureComponent {
 
   render () {
     return (
-        <div className={`btn btn-outline-primary ${this.props.className}`} onClick={ () => this.clickHandler() }>{this.props.text}</div>
+        <div
+          disabled={this.props.disabled}
+          className={`btn btn-outline-secondary btn-block ${this.props.className}`}
+          onClick={ () => this.clickHandler() }>
+          {this.props.text }
+        </div>
     );
   }
 }
 
-export default OutlinePrimaryButton;
+export default BlockOutlineSecondaryButton;
