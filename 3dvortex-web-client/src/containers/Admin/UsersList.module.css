@@ -1,0 +1,19 @@
+
+.clickeableRow:hover {
+    cursor: pointer;
+    background-color: #5DBCD2;
+    color:white;
+}
+
+.clickeableIcon {
+    text-align: center;
+}
+
+.indexBigger {
+    z-index: 10;
+}
+
+.clickeableIcon:hover{
+    color:white;
+    background-color: rgba(240, 52, 52, 0.5);
+}

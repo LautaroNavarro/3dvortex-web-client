@@ -1,16 +1,16 @@
 import { baseURI } from './config';
 
-export const getUserModels = (sucess, failure, user_id, token) => {
+export const deleteUser = (sucess, failure, userId, token) => {
 
     let options = {
-        method: 'GET',
+        method: 'DELETE',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
         },
     }
 
-    fetch(`${baseURI}/users/${user_id}/models`, options).then(
+    fetch(`${baseURI}/users/${userId}`, options).then(
         (resp) => {
             if (resp.status === 200){
                 resp.json().then((resp) => {sucess(resp);})
@@ -23,5 +23,4 @@ export const getUserModels = (sucess, failure, user_id, token) => {
             }
         }
     )
-
 }

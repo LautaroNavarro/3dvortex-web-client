@@ -1,7 +1,6 @@
-.StaticModelVisualizer {
-    margin-bottom: 16px;
-}
 
 .StaticModelVisualizer img{
     object-fit: cover;
+    width: 100%;
 }
+

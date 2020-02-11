@@ -66,8 +66,23 @@ class Layout extends Component {
         ){
             return false;
         }
+        if (
+            (this.isLoggedIn()) &&
+            (this.ADMIN_PATH_REGEXP.exec(window.location.pathname) ? true : false) &&
+            (this.getUserFromToken().access_level == 0)
+        ){
+            return false;
+        }
+        if (
+            (!this.isLoggedIn()) &&
+            (this.ADMIN_PATH_REGEXP.exec(window.location.pathname) ? true : false)
+        ){
+            return false;
+        }
         return true;
     }
+
+    ADMIN_PATH_REGEXP = new RegExp('\/admin\/.*');
 
     AVAILABLE_PATHS_WITHOUT_LOGIN = [
         '/login',
@@ -101,16 +116,17 @@ class Layout extends Component {
 
     render () {
         return (
+            <GeneralContext.Provider value={
+                {
+                    raiseAlert: this.handleRaiseAlert,
+                    setRedirect: this.setRedirect,
+                    renderRedirect: this.renderRedirect,
+                    user: this.getUserFromToken(),
+                }
+            }>
             <Aux>
                 { this.renderRedirect() }
-                <GeneralContext.Provider value={
-                    {
-                        raiseAlert: this.handleRaiseAlert,
-                        setRedirect: this.setRedirect,
-                        renderRedirect: this.renderRedirect,
-                        user: this.getUserFromToken(),
-                    }
-                }>
+
                 <NavBar isLoggedIn={this.isLoggedIn()}/>
                 <Alert
                     message={this.state.alert.message}
@@ -119,13 +135,12 @@ class Layout extends Component {
                     handleCloseAlert={() => {this.handleCloseAlert()}}
                 />
                 {this.props.renderBeforeMain}
-                {/*<div>Toolbar, SideDrawer, Backdrop</div>*/}
                     <Container className={classes.Main}>
                         {this.props.children}
                     </Container>
                 <Footer />
-                </GeneralContext.Provider>
             </Aux>
+            </GeneralContext.Provider>
         );
     }
 }

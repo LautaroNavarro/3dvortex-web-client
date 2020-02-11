@@ -1,6 +1,6 @@
 import { baseURI } from './config';
 
-export const getUserModels = (sucess, failure, user_id, token) => {
+export const listUsers = (sucess, failure, token, filter) => {
 
     let options = {
         method: 'GET',
@@ -10,7 +10,7 @@ export const getUserModels = (sucess, failure, user_id, token) => {
         },
     }
 
-    fetch(`${baseURI}/users/${user_id}/models`, options).then(
+    fetch(`${baseURI}/users/${filter ? '?email=' + filter : ''}`, options).then(
         (resp) => {
             if (resp.status === 200){
                 resp.json().then((resp) => {sucess(resp);})
@@ -23,5 +23,4 @@ export const getUserModels = (sucess, failure, user_id, token) => {
             }
         }
     )
-
 }

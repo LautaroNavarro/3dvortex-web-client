@@ -34,6 +34,11 @@ class NavBar extends PureComponent {
       setRedirect('/manage-models');
     }
 
+    redirectToAdminUsers (e) {
+      const {setRedirect} = this.context;
+      setRedirect('/admin/users');
+    }
+
     redirectToHome (e) {
       const {setRedirect} = this.context;
       setRedirect('/');
@@ -55,10 +60,14 @@ class NavBar extends PureComponent {
       listCategories(this.handleGetCategories, this.handleGetCategoriesError);
     }
 
+    isAdmin(user) {
+      return ( user.access_level > 0 );
+    }
+
     render () {
         const { user } = this.context;
         return (
-          <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <nav className={ `navbar navbar-expand-lg ${( this.isAdmin(user) ) ? 'navbar-dark bg-dark' : 'navbar-light bg-light' }` }>
               <Container>
                 <NavBarBrand handler={() => this.redirectToHome() }>3D VORTEX</NavBarBrand>
                 <NavBarSearch />
@@ -72,6 +81,14 @@ class NavBar extends PureComponent {
                 <NavBarItemList>
                   { this.props.isLoggedIn ? '' : <NavBarItem link="/signin">Crea tu cuenta</NavBarItem>}
                   { this.props.isLoggedIn ? '' : <NavBarItem link="/login">Ingresa</NavBarItem>}
+                  { this.props.isLoggedIn && this.isAdmin(user) ?
+                    <DropDown name='Admin'>
+                      <DropDownItem onClickHandler={ () => this.redirectToAdminUsers()} >Usuarios</DropDownItem>
+                      <DropDownItem >Modelos</DropDownItem>
+                      <DropDownItem >Impresiones</DropDownItem>
+                      <DropDownItem >Impresoras</DropDownItem>
+                    </DropDown> : ''
+                  }
                   { this.props.isLoggedIn ? <NavBarItem link="/"><ShoppingCartIcon /></NavBarItem> : ''}
                   { this.props.isLoggedIn ? (
                     <DropDown name={ `${user.name} ${user.lastname}` }>

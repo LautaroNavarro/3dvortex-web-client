@@ -13,7 +13,6 @@ class PrimaryButton extends PureComponent {
         } else if (this.props.handler) {
             this.props.handler();
         }
-
     }
 
   render () {

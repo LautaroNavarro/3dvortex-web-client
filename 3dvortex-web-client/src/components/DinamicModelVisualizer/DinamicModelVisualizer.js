@@ -31,7 +31,7 @@ class DinamicModelVisualizer extends PureComponent {
 						url={this.props.model.url}
 					/>
 				}
-				<div className='btn btn-outline-dark btn-sm mt-2' onClick={() => this.handleSwitch()}>
+				<div className={`btn btn-outline-dark btn-sm ${( this.state.visualize === STATIC_VISUALIZATION ) ? 'mt-3' : ''}`} onClick={() => this.handleSwitch()}>
 					{ ( this.state.visualize === STATIC_VISUALIZATION ) ? 'Load 3d model' : 'Load image' }
 				</div>
 			</div>

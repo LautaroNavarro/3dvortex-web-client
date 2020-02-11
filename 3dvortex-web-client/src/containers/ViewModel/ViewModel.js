@@ -32,7 +32,7 @@ class ViewModel extends PureComponent {
   render () {
     return (
     <Layout>
-    { (this.state.model) ?
+    { ( this.state.model.id ) ?
         <div>
             <div className="jumbotron jumbotron-fluid">
               <div className="container">
@@ -44,14 +44,16 @@ class ViewModel extends PureComponent {
                 <Column number='6'>
                     <DinamicModelVisualizer
                         image={ {
-                            'url': 'https://www.characterstation.com/eshop/8108-large_default/figur-funko-pop-custom-blank-male-diy-geneva-switzerland-online-shop.jpg',
-                            'alt': 'alt'
+                            'url': this.state.model.image_media.url,
+                            'alt': this.state.model.description
                         } }
-                        model={{ 'url': 'https://3d-vortex-models.s3.us-east-2.amazonaws.com/104.stl'}}
+                        model={{ 'url': this.state.model.model_media.url}}
                     />
                 </Column>
                 <Column number='6'>
-                    <PrintModelForm />
+                    <PrintModelForm
+                        model={this.state.model}
+                    />
                 </Column>
             </Row>
         </div> : ''

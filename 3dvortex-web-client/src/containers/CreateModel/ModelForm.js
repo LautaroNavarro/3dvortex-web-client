@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import OutlinePrimaryButton from '../../components/Buttons/OutlinePrimaryButton';
 import InteractiveModelVisualizer from '../../components/InteractiveModelVisualizer/InteractiveModelVisualizer';
 import StaticModelVisualizer from '../../components/StaticModelVisualizer/StaticModelVisualizer';
+import Spinner from '../../components/Spinner/Spinner';
 import Row from '../../hoc/Row';
 import Column from '../../hoc/Column';
 import { listCategories } from '../../sdk/categories';
@@ -28,6 +29,7 @@ class ModelForm extends PureComponent {
     'selectedCategory': null,
     'categories': [],
     'uploadingFile': false,
+    'creatingModel': false,
     'privacy': 1,
   }
 
@@ -36,15 +38,17 @@ class ModelForm extends PureComponent {
   }
 
   handleImageMediaUploadedSuccesfully = (response) => {
+    this.setState({uploadingFile: false});
     const { raiseAlert } = this.context;
     raiseAlert('Binary file uploaded succesfully', 'SUCCESS');
     this.setState({'imageMedia': {'url': response.url, 'id': response.id}});
   }
 
   handleImageMediaUploadFailed = (error_message) => {
-      const { raiseAlert } = this.context;
-      console.log(error_message);
-      raiseAlert('We were not able to upload the file', 'DANGER');
+    this.setState({uploadingFile: false});
+    const { raiseAlert } = this.context;
+    console.log(error_message);
+    raiseAlert('We were not able to upload the file', 'DANGER');
   }
 
   requiredFieldAreFilled = () => {
@@ -55,11 +59,13 @@ class ModelForm extends PureComponent {
   }
 
   handleCreateModelSuccesfully = (response) => {
+    this.setState({creatingModel: true});
     const { setRedirect } = this.context;
     setRedirect('/manage-models');
   }
 
   handleCreateModelFailed = (error_message) => {
+      this.setState({creatingModel: true});
       const { raiseAlert } = this.context;
       console.log(error_message);
       raiseAlert('We were not able to create the model, please try later', 'DANGER');
@@ -79,6 +85,7 @@ class ModelForm extends PureComponent {
         this.state.privacy,
         sessionStorage.getItem('token'),
       )
+      this.setState({creatingModel: true});
     }
     else {
       raiseAlert('Fill the required fields. Name, model & image are required', 'DANGER');
@@ -86,6 +93,7 @@ class ModelForm extends PureComponent {
   }
 
   saveImageHandler = (imageData) => {
+    this.setState({uploadingFile: true});
     createImageMedia(
       this.handleImageMediaUploadedSuccesfully,
       this.handleImageMediaUploadFailed,
@@ -120,18 +128,21 @@ class ModelForm extends PureComponent {
   }
 
   handleModelMediaUploadedSuccesfully = (response) => {
+    this.setState({uploadingFile: false});
     const { raiseAlert } = this.context;
     raiseAlert('Binary file uploaded succesfully', 'SUCCESS');
     this.setState({'modelMedia': {'url': response.url, 'id': response.id}});
   }
 
   handleModelMediaUploadFailed = (error_message) => {
+      this.setState({uploadingFile: false});
       const { raiseAlert } = this.context;
       console.log(error_message);
       raiseAlert('We were not able to upload the file', 'DANGER');
   }
 
   uploadModelHandler = (e) => {
+    this.setState({uploadingFile: true});
     if (e.target.files[0].name.split('.')[1] === 'stl'){
       createModelMedia(
         this.handleModelMediaUploadedSuccesfully,
@@ -147,6 +158,32 @@ class ModelForm extends PureComponent {
   render () {
     return (
       <div>
+      {this.state.uploadingFile ? <Spinner>
+          <div>
+            <Row>
+            <div className="spinner-border m-auto" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+            </Row>
+            <Row>
+              <p className='m-auto'>Uploading file...</p>
+            </Row>
+          </div>
+      </Spinner> : ''}
+
+      {this.state.creatingModel ? <Spinner>
+          <div>
+            <Row>
+            <div className="spinner-border m-auto" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+            </Row>
+            <Row>
+              <p className='m-auto'>Creating model...</p>
+            </Row>
+          </div>
+      </Spinner> : ''}
+
             <form>
               <Row>
               <Column number='6'>
@@ -179,7 +216,7 @@ class ModelForm extends PureComponent {
                     <label className='input-group-text' htmlFor='inputGroupSelect01'>Categoria</label>
                   </div>
                   <select className='custom-select' id='inputGroupSelect01' onChange={ (e) => this.onChangeCategoryHandler(e) }>
-                  <option value={null} selected>Sin categoria</option>
+                  <option value={null} defaultValue >Sin categoria</option>
                   {this.state.categories.map( (category) =>
                     <option value={category.id}>{category.name}</option>
                   )}
@@ -190,7 +227,7 @@ class ModelForm extends PureComponent {
                     <label className='input-group-text' htmlFor='inputGroupSelect01'>Privacidad</label>
                   </div>
                   <select className='custom-select' id='inputGroupSelect01' onChange={ (e) => this.onChangePrivacyHandler(e) }>
-                  <option value={1} selected>Publico</option>
+                  <option value={1} defaultValue>Publico</option>
                   <option value={0}>Privado</option>
                   </select>
                 </div>
@@ -226,10 +263,8 @@ class ModelForm extends PureComponent {
               }
               {!this.state.imageMedia.url ? '' :
               <StaticModelVisualizer
-                maxHeight='250px'
-                minHeight='250px'
-                maxWidth='250px'
-                minWidth='250px'
+                height='250px'
+                width='250px'
                 url={this.state.imageMedia.url}
               />
               }

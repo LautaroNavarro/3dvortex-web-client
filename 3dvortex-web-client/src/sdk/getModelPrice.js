@@ -1,7 +1,6 @@
 import { baseURI } from './config';
 
-export const getUserModels = (sucess, failure, user_id, token) => {
-
+export const getModelPrice = (sucess, failure, modelId, materialId, scale, token) => {
     let options = {
         method: 'GET',
         headers: {
@@ -9,17 +8,15 @@ export const getUserModels = (sucess, failure, user_id, token) => {
             'Content-Type': 'application/json',
         },
     }
-
-    fetch(`${baseURI}/users/${user_id}/models`, options).then(
+    fetch(
+        `${baseURI}/models/${modelId}/price?material_id=${materialId}&scale=${scale}`,
+        options
+    ).then(
         (resp) => {
             if (resp.status === 200){
                 resp.json().then((resp) => {sucess(resp);})
             } else {
-                resp.json().then(
-                    (resp) => {
-                        failure(resp.error_message);
-                    }
-                )
+                resp.json().then((resp) => {failure(resp.error_message);})
             }
         }
     )

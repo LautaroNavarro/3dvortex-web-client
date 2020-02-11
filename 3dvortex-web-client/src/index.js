@@ -9,6 +9,8 @@ import ViewModel from './containers/ViewModel/ViewModel';
 import ManageAddresses from './containers/ManageAddresses/ManageAddresses';
 import CreateAddress from './containers/CreateAddress/CreateAddress';
 import CreateModel from './containers/CreateModel/CreateModel';
+import UsersList from './containers/Admin/UsersList';
+import UserUpdate from './containers/Admin/UserUpdate';
 import ManageModels from './containers/ManageModels/ManageModels';
 import * as serviceWorker from './serviceWorker';
 
@@ -22,6 +24,8 @@ const routing = (
       <Route path="/manage-addresses" component={ManageAddresses} />
       <Route path="/manage-models" component={ManageModels} />
       <Route path="/create-address" component={CreateAddress} />
+      <Route path="/admin/users/:id" component={UserUpdate} />
+      <Route exact path="/admin/users" component={UsersList} />
       <Route path="/create-model" component={CreateModel} />
     </div>
   </Router>
