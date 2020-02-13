@@ -34,9 +34,19 @@ class NavBar extends PureComponent {
       setRedirect('/manage-models');
     }
 
-    redirectToAdminUsers (e) {
+    redirectToAdminUsers () {
       const {setRedirect} = this.context;
       setRedirect('/admin/users');
+    }
+
+    redirectToAdminModels () {
+      const {setRedirect} = this.context;
+      setRedirect('/admin/models');
+    }
+
+    redirectToAdminPrinters () {
+      const {setRedirect} = this.context;
+      setRedirect('/admin/printers');
     }
 
     redirectToHome (e) {
@@ -84,9 +94,9 @@ class NavBar extends PureComponent {
                   { this.props.isLoggedIn && this.isAdmin(user) ?
                     <DropDown name='Admin'>
                       <DropDownItem onClickHandler={ () => this.redirectToAdminUsers()} >Usuarios</DropDownItem>
-                      <DropDownItem >Modelos</DropDownItem>
+                      <DropDownItem onClickHandler={ () => this.redirectToAdminModels()} >Modelos</DropDownItem>
                       <DropDownItem >Impresiones</DropDownItem>
-                      <DropDownItem >Impresoras</DropDownItem>
+                      <DropDownItem onClickHandler={ () => this.redirectToAdminPrinters()}>Impresoras</DropDownItem>
                     </DropDown> : ''
                   }
                   { this.props.isLoggedIn ? <NavBarItem link="/"><ShoppingCartIcon /></NavBarItem> : ''}

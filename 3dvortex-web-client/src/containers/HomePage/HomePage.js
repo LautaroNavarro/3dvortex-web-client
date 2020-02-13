@@ -5,7 +5,7 @@ import Carousel from '../../components/Carousel/Carousel';
 import HorizontalSection from '../../components/HorizontalSection/HorizontalSection';
 import ModelContentSection from '../../components/ModelContentSection/ModelContentSection';
 import CategorySection from '../../components/CategorySection/CategorySection';
-import listModels, {NEWESTS_FILTER, MOST_PRINTED_FILTER} from '../../sdk/listModels';
+import{ NEWESTS_FILTER, MOST_PRINTED_FILTER, listModels} from '../../sdk/listModels';
 
 class HomePage extends PureComponent {
 

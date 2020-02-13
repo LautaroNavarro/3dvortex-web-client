@@ -10,7 +10,10 @@ import ManageAddresses from './containers/ManageAddresses/ManageAddresses';
 import CreateAddress from './containers/CreateAddress/CreateAddress';
 import CreateModel from './containers/CreateModel/CreateModel';
 import UsersList from './containers/Admin/UsersList';
+import ModelsList from './containers/Admin/ModelsList';
+import PrintersList from './containers/Admin/PrintersList';
 import UserUpdate from './containers/Admin/UserUpdate';
+import ModelUpdate from './containers/Admin/ModelUpdate';
 import ManageModels from './containers/ManageModels/ManageModels';
 import * as serviceWorker from './serviceWorker';
 
@@ -26,6 +29,9 @@ const routing = (
       <Route path="/create-address" component={CreateAddress} />
       <Route path="/admin/users/:id" component={UserUpdate} />
       <Route exact path="/admin/users" component={UsersList} />
+      <Route exact path="/admin/models" component={ModelsList} />
+      <Route exact path="/admin/printers" component={PrintersList} />
+      <Route path="/admin/models/:id" component={ModelUpdate} />
       <Route path="/create-model" component={CreateModel} />
     </div>
   </Router>
