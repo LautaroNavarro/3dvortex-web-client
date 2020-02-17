@@ -1,15 +1,15 @@
-import { baseURI } from '../../sdk/config';
+import { baseURI } from '../../../sdk/config';
 import React, {PureComponent} from 'react';
-import { getModelById } from '../../sdk/getModelById';
-import { updateModel } from '../../sdk/updateModel';
-import { createModelMediaFromUrl } from '../../sdk/createModelMediaFromUrl';
-import { createImageMediaFromUrl } from '../../sdk/createImageMediaFromUrl';
-import { listCategories } from '../../sdk/categories';
-import classes from './UsersList.module.css';
-import SimpleModal from '../../components/Modal/SimpleModal';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import OutlineSecondaryButton from '../../components/Buttons/OutlineSecondaryButton';
-import GeneralContext from '../../components/Layout/GeneralContext';
+import { getModelById } from '../../../sdk/getModelById';
+import { updateModel } from '../../../sdk/updateModel';
+import { createModelMediaFromUrl } from '../../../sdk/createModelMediaFromUrl';
+import { createImageMediaFromUrl } from '../../../sdk/createImageMediaFromUrl';
+import { listCategories } from '../../../sdk/categories';
+import classes from '../Admin.module.css';
+import SimpleModal from '../../../components/Modal/SimpleModal';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import OutlineSecondaryButton from '../../../components/Buttons/OutlineSecondaryButton';
+import GeneralContext from '../../../components/Layout/GeneralContext';
 
 
 class UserUpdateComponent extends PureComponent {
@@ -141,7 +141,7 @@ class UserUpdateComponent extends PureComponent {
           value: name,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.name = name;
       this.setState({'newModel': model});
     }
@@ -151,7 +151,7 @@ class UserUpdateComponent extends PureComponent {
           value: description,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.description = description;
       this.setState({'newModel': model});
     }
@@ -161,7 +161,7 @@ class UserUpdateComponent extends PureComponent {
           value: model_media_url,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.model_media.url = model_media_url;
       this.setState({'newModel': model});
     }
@@ -171,7 +171,7 @@ class UserUpdateComponent extends PureComponent {
           value: image_media_url,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.image_media.url = image_media_url;
       this.setState({'newModel': model});
     }
@@ -181,7 +181,7 @@ class UserUpdateComponent extends PureComponent {
           value: privacy,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.privacy = privacy;
       this.setState({'newModel': model});
     }
@@ -191,7 +191,7 @@ class UserUpdateComponent extends PureComponent {
           value: category,
         },
       }) => {
-      let model = {...this.state.newModel};
+      let model = JSON.parse(JSON.stringify(this.state.newModel));
       model.category = category;
       this.setState({'newModel': model});
     }

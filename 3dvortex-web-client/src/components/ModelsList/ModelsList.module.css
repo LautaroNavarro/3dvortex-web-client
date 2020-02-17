@@ -1,0 +1,9 @@
+
+.clickeableRow:hover {
+    cursor: pointer;
+    background-color: #5DBCD2;
+    color:white;
+}
+.clickeableRow:hover small{
+    color: white;
+}

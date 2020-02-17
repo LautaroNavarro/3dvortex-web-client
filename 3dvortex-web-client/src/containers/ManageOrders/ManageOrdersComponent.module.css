@@ -18,14 +18,14 @@
     background-color: rgba(240, 52, 52, 0.5);
 }
 
-.printerAvailable {
+.orderReadyToBeDelivered {
     color: #00BD0E;
 }
 
-.printerBusy {
+.orderWaiting {
     color: #FFB801;
 }
 
-.printerWaitingTechnical {
-    color: #EB1700;
+.orderDelivered {
+    color: blue;
 }

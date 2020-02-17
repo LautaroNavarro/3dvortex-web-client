@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react';
-import { listModels, NAME_FILTER } from '../../sdk/listModels';
-import { deleteModel } from '../../sdk/deleteModel';
-import classes from './UsersList.module.css';
-import SimpleModal from '../../components/Modal/SimpleModal';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import OutlineSecondaryButton from '../../components/Buttons/OutlineSecondaryButton';
-import GeneralContext from '../../components/Layout/GeneralContext';
+import { listModels, NAME_FILTER } from '../../../sdk/listModels';
+import { deleteModel } from '../../../sdk/deleteModel';
+import classes from '../Admin.module.css';
+import SimpleModal from '../../../components/Modal/SimpleModal';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import OutlineSecondaryButton from '../../../components/Buttons/OutlineSecondaryButton';
+import GeneralContext from '../../../components/Layout/GeneralContext';
 
 
 class ModelsListComponent extends PureComponent {

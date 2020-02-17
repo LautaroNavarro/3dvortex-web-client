@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import classes from './ModelsList.module.css'
 import GeneralContext from '../../components/Layout/GeneralContext';
 import StaticModelVisualizer from '../../components/StaticModelVisualizer/StaticModelVisualizer';
 import getUserAddresses from '../../sdk/getUserAddresses';
@@ -10,11 +11,16 @@ class ModelsList extends PureComponent {
 
   mountedAddresses = []
 
+  handleClickModel = (modelId) => {
+    const { setRedirect } = this.context;
+    setRedirect(`/models/${modelId}`);
+  }
+
   render () {
     return (
         <div>
         {this.props.models.map((model) =>
-          <div className="card mb-3" key={ model.id }>
+          <div className={`card mb-3 ${classes.clickeableRow}`} key={ model.id } onClick={() => this.handleClickModel(model.id)}>
             <div className="row no-gutters">
               <div className="col-md-4 p-2">
                 <StaticModelVisualizer url={model.image_media.url}
@@ -33,9 +39,6 @@ class ModelsList extends PureComponent {
 
               <div className='navbar navbar-light light-blue lighten-4'>
               <div className='navbar navbar-light light-blue lighten-4'>
-                <button className="navbar-toggler toggler-example border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
-                  aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation"><span className="dark-blue-text"><i
-                      className="fas fa-bars fa-1x"></i></span></button>
               </div>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent1">
                   <ul className="navbar-nav">

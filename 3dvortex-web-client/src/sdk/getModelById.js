@@ -14,7 +14,9 @@ export const getModelById = (successCallBack, failureCallBack, modelId, token) =
       }
     })
     xhr.open('GET', `${baseURI}/models/${modelId}`);
-    xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    if (token) {
+      xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    }
     xhr.send();
 }
 

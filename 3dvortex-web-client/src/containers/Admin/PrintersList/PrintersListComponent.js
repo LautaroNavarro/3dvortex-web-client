@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react';
-import { listPrinters } from '../../sdk/listPrinters';
-import { deletePrinter } from '../../sdk/deletePrinter';
-import classes from './UsersList.module.css';
-import SimpleModal from '../../components/Modal/SimpleModal';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import OutlineSecondaryButton from '../../components/Buttons/OutlineSecondaryButton';
-import GeneralContext from '../../components/Layout/GeneralContext';
+import { listPrinters } from '../../../sdk/listPrinters';
+import { deletePrinter } from '../../../sdk/deletePrinter';
+import classes from '../Admin.module.css';
+import SimpleModal from '../../../components/Modal/SimpleModal';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import OutlineSecondaryButton from '../../../components/Buttons/OutlineSecondaryButton';
+import GeneralContext from '../../../components/Layout/GeneralContext';
 
 const PRINTER_STATUSES = {
   0: 'Habilitada',
@@ -34,6 +34,11 @@ class PrintersListComponent extends PureComponent {
   redirectToManagePrinter (e) {
     const {setRedirect} = this.context;
     setRedirect(`/admin/printers/${e.target.parentElement.children[0].innerText}`);
+  }
+
+  redirectToCreatePrinter (e) {
+    const {setRedirect} = this.context;
+    setRedirect('/admin/printers/new');
   }
 
   handleSearchChange = (event) => {
@@ -160,7 +165,7 @@ class PrintersListComponent extends PureComponent {
                     >
                     <th scope="row">{printer.id}</th>
                     <td>{printer.name}</td>
-                    <td>{printer.address}</td>
+                    <td>{printer.address.name}</td>
                     <td>
                       { PRINTER_STATUSES[printer.status] }
                     </td>
@@ -182,6 +187,13 @@ class PrintersListComponent extends PureComponent {
             }
               </tbody>
             </table>
+            <div className='text-center'>
+              <PrimaryButton
+                handler={() => this.redirectToCreatePrinter()}
+                text='Nueva impresora'
+                className='mr-4'
+                />
+            </div>
         </div>
     </div>
     );

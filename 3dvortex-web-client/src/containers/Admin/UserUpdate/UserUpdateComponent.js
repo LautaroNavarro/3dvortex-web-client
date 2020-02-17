@@ -1,11 +1,11 @@
 import React, {PureComponent} from 'react';
-import { getUserById } from '../../sdk/getUserById';
-import { updateUser } from '../../sdk/updateUser';
-import classes from './UsersList.module.css';
-import SimpleModal from '../../components/Modal/SimpleModal';
-import PrimaryButton from '../../components/Buttons/PrimaryButton';
-import OutlineSecondaryButton from '../../components/Buttons/OutlineSecondaryButton';
-import GeneralContext from '../../components/Layout/GeneralContext';
+import { getUserById } from '../../../sdk/getUserById';
+import { updateUser } from '../../../sdk/updateUser';
+import classes from '../Admin.module.css';
+import SimpleModal from '../../../components/Modal/SimpleModal';
+import PrimaryButton from '../../../components/Buttons/PrimaryButton';
+import OutlineSecondaryButton from '../../../components/Buttons/OutlineSecondaryButton';
+import GeneralContext from '../../../components/Layout/GeneralContext';
 
 
 class UserUpdateComponent extends PureComponent {
@@ -84,7 +84,7 @@ class UserUpdateComponent extends PureComponent {
           value: email,
         },
       }) => {
-      let user = {...this.state.newUser};
+      let user = JSON.parse(JSON.stringify(this.state.newUser));
       user.email = email;
       this.setState({'newUser': user});
     }
@@ -94,7 +94,7 @@ class UserUpdateComponent extends PureComponent {
           value: access_level,
         },
       }) => {
-      let user = {...this.state.newUser};
+      let user = JSON.parse(JSON.stringify(this.state.newUser));
       user.access_level = access_level;
       this.setState({'newUser': user});
     }
@@ -104,7 +104,7 @@ class UserUpdateComponent extends PureComponent {
           value: name,
         },
       }) => {
-      let user = {...this.state.newUser};
+      let user = JSON.parse(JSON.stringify(this.state.newUser));
       user.name = name;
       this.setState({'newUser': user});
     }
@@ -115,7 +115,7 @@ class UserUpdateComponent extends PureComponent {
           value: lastname,
         },
       }) => {
-      let user = {...this.state.newUser};
+      let user = JSON.parse(JSON.stringify(this.state.newUser));
       user.lastname = lastname;
       this.setState({'newUser': user});
     }

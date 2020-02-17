@@ -7,7 +7,10 @@ import Modal from '../../../components/Modal/Modal';
 import { getMaterials } from '../../../sdk/getMaterials';
 import { getUserAddresses } from '../../../sdk/getUserAddresses';
 import { getModelPrice } from '../../../sdk/getModelPrice';
+import { createOrder } from '../../../sdk/createOrder';
 import GeneralContext from '../../../components/Layout/GeneralContext';
+import Spinner from '../../../components/Spinner/Spinner';
+
 
 class PrintModelForm extends PureComponent {
 
@@ -22,6 +25,8 @@ class PrintModelForm extends PureComponent {
     'price': 0,
     'calculatingPrice': true,
     'displayCheckout': false,
+    'preferenceId': '',
+    'displaySpinner': false,
   }
 
   handleScale = (e) => {
@@ -78,8 +83,30 @@ class PrintModelForm extends PureComponent {
     // TODO: Show notification error
   }
 
+  handleCreateOrderSucess = (response) => {
+      this.setState({
+        'preferenceId': response.preference_id,
+        'displayCheckout': true,
+        'displaySpinner': false,
+      });
+  }
+
+  handleCreateOrderFail = (response) => {
+    const {raiseAlert} = this.context;
+    raiseAlert('There was an error creating the order, please try later', 'DANGER');
+  }
+
   handlePrintClick () {
-    this.setState({'displayCheckout': true});
+    this.setState({'displaySpinner': true});
+    createOrder(
+      this.handleCreateOrderSucess,
+      this.handleCreateOrderFail,
+      this.props.model.id,
+      this.state.scale,
+      this.state.selectedMaterial,
+      this.state.selectedAddress,
+      sessionStorage.getItem('token'),
+    )
   }
 
   handleClickCloseCheckout () {
@@ -132,6 +159,20 @@ class PrintModelForm extends PureComponent {
     }
     return (
       <div>
+
+      {this.state.displaySpinner ? <Spinner>
+          <div>
+            <Row>
+            <div className="spinner-border m-auto" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+            </Row>
+            <Row>
+              <p className='m-auto'>Creating order...</p>
+            </Row>
+          </div>
+      </Spinner> : ''}
+
           {
             this.state.displayCheckout ? <Modal
               handleClickClose={()=>{this.handleClickCloseCheckout()}}
@@ -174,7 +215,7 @@ class PrintModelForm extends PureComponent {
               </Row>
               <Row>
                 <Column number='12'>
-                  <MercadoPagoCheckoutButton dataPreferenceId="477757898-e15a8f26-357c-4ec9-88da-fe9dd72a71b4"/>
+                  <MercadoPagoCheckoutButton dataPreferenceId={ this.state.preferenceId }/>
                 </Column>
               </Row>
             </Modal> : ''

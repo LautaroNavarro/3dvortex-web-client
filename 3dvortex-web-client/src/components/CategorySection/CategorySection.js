@@ -35,7 +35,7 @@ class CategorySection extends PureComponent {
                     this.state.categories.map(
                         (category) => (
                             category.father_category_id ?
-                            ''  : <CategorySectionItem key={ category.id } url='#' name={ category.name } />
+                            ''  : <CategorySectionItem key={ category.id } url={`/search-models?category_id=${category.id}`} name={ category.name } />
                         )
                     )
                   }

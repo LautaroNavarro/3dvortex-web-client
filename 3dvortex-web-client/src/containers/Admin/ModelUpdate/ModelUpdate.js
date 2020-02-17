@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import Layout from '../../components/Layout/Layout';
+import Layout from '../../../components/Layout/Layout';
 import ModelUpdateComponent from './ModelUpdateComponent';
 
 class ModelUpdate extends PureComponent {
