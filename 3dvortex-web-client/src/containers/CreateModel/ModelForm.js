@@ -79,7 +79,7 @@ class ModelForm extends PureComponent {
         user.id,
         this.state.name,
         this.state.description,
-        this.state.category_id,
+        this.state.selectedCategory,
         this.state.imageMedia.id,
         this.state.modelMedia.id,
         this.state.privacy,

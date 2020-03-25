@@ -15,9 +15,9 @@ class MercadoPagoCheckoutButton extends PureComponent {
 
   render () {
     return (
-        <div className='ml-3' ref={ref => (this.mount = ref)}>
+        <form className='ml-3' ref={ref => (this.mount = ref)} action='/manage-orders/' method='GET'>
             {null}
-        </div>
+        </form>
     );
   }
 }
